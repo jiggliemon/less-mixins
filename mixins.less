@@ -1,0 +1,73 @@
+@import 'bootstrap';
+
+///////////////////////////////
+//---- Background Images ----//
+///////////////////////////////
+.background(local, @image:'', @left:0, @top:0,@repeat:no-repeat, @src:@base_url){
+	@url: %('%s%s',@src, @image);
+	background: url(@url) @left @top @repeat;
+}
+.background(amazon, @image:'', @left:0, @top:0,@repeat:no-repeat){
+	.background(local,@image, @left, @top, @repeat,@s3);
+}
+///////////////////////////////
+//----- Border Radius -------//
+///////////////////////////////
+.borderRadius(core,@radius:@base_radius){
+	-moz-border-radius: @radius;
+	-webkit-border-radius: @radius;
+	border-radius: @radius;
+}
+.borderRadius(all,@radius:@base_radius){
+	.borderRadius(core,@radius);
+}
+.borderRadius(top-right,@radius:@base_radius){
+	-moz-border-radius-topright:@radius;
+	-webkit-border-top-right-radius:@radius;
+	border-top-right-radius:@radius;
+}
+.borderRadius(top-left,@radius:@base_radius){
+	-moz-border-radius-topleft:@radius;
+	-webkit-border-top-left-radius:@radius;
+	border-top-left-radius:@radius;
+}
+.borderRadius(bottom-right,@radius:@base_radius){
+	-moz-border-radius-bottomright:@radius;
+	-webkit-border-bottom-right-radius:@radius;
+	border-bottom-right-radius:@radius;
+}
+.borderRadius(bottom-left,@radius:@base_radius){
+	-moz-border-radius-bottomleft:@radius;
+	-webkit-border-bottom-left-radius:@radius;
+	border-bottom-left-radius:@radius;
+}
+.borderRadius(top,@radius:@base_radius){
+	.borderRadius(top-right,@radius);
+	.borderRadius(top-left,@radius);
+}
+.borderRadius(bottom,@radius:@base_radius){
+	.borderRadius(bottom-right,@radius);
+	.borderRadius(bottom-left,@radius);
+}
+.borderRadius(left,@radius:@base_radius){
+	.borderRadius(top-left,@radius);
+	.borderRadius(bottom-left,@radius);
+}
+.borderRadius(right,@radius:@base_radius){
+	.borderRadius(top-right,@radius);
+	.borderRadius(bottom-right,@radius);
+}
+.border-radius(@top_left:@base_radius,@top_right:@base_radius,@bottom_right:@base_radius,@bottom_left:@base_radius){
+	-moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+///////////////////////////
+//----- Box Shadow ------//
+///////////////////////////
+.boxShadow(@top:0,@left:0,@blur:0,@color:#000){
+	-moz-box-shadow: @top @left @blur @color;
+	-webkit-box-shadow: @top @left @blur @color;
+	box-shadow: @top @left @blur @color;
+}
