@@ -8,29 +8,6 @@ require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
 var less = require('less');
 
-less.tree.functions.shard = function( path, base, shards){
-	
-    var sum = 0,
-        i=0,
-        len = path.value.length, 
-        newPath = [], 
-        shards = shards || 1,
-        shard;
-
-    for(;i<len;i++){
-        sum += path.toString().charCodeAt(i);
-    }
-
-    shard = 1 + sum % shards;
-    
-    newPath.push(base.value.replace(/{#}/, shard ));
-    newPath.push(path.value);
-    console.log(path.value);
-    newPath = newPath.join('/');
-    
-    return new(less.tree.Quoted)('"'+ newPath +'"',newPath);
-}
-	
 var args = process.argv.slice(1);
 var options = {
     compress: false,
@@ -70,6 +47,16 @@ args = args.filter(function (arg) {
     }
 });
 
+var functions = fs.readdirSync("./functions");
+if(functions.length){
+  functions.forEach(function(file,index){
+    var extension = require("./functions/"+file);
+    for(var key in extension){
+      less.tree.functions[key] = extension[key];
+    }
+  });  
+}
+
 var input = args[1];
 if (input && input[0] != '/') {
     input = path.join(process.cwd(), input);
@@ -77,6 +64,14 @@ if (input && input[0] != '/') {
 var output = args[2];
 if (output && output[0] != '/') {
     output = path.join(process.cwd(), output);
+} else {
+    output = input.split("/");
+    filename = options.compress?'min.':'' + (output.pop().replace(/\.less/,'.css'));
+    output.pop();
+    output.push('css');
+    fs.mkdir(output.join('/'),0755);
+    output.push(filename);
+    output = output.join('/');
 }
 
 var css, fd, tree;

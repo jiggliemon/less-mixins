@@ -1,0 +1,7 @@
+@s3: '//aws{#}.agroism.com';
+
+#newFile {
+	@num: shard('somethign',@s3);
+	//@url: %('%s',@num);
+	background: @num;
+}
