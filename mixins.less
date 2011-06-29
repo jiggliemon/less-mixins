@@ -1,10 +1,9 @@
-@import 'bootstrap';
-
 ///////////////////////////////
 //---- Background Images ----//
 ///////////////////////////////
 .background(local, @image:'', @left:0, @top:0,@repeat:no-repeat, @src:@base_url){
-	@url: %('%s%s',@src, @image);
+	@url:  %('%s%s',@src, @image);
+	@url: shard(@s3);
 	background: url(@url) @left @top @repeat;
 }
 .background(amazon, @image:'', @left:0, @top:0,@repeat:no-repeat){

@@ -66,7 +66,7 @@ if (output && output[0] != '/') {
     output = path.join(process.cwd(), output);
 } else {
     output = input.split("/");
-    filename = options.compress?'min.':'' + (output.pop().replace(/\.less/,'.css'));
+    filename = ((options.compress)?'min.':'') + (output.pop().replace(/\.less/,'.css'));
     output.pop();
     output.push('css');
     fs.mkdir(output.join('/'),0755);
