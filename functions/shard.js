@@ -1,20 +1,19 @@
 (function(tree){
 var shard = function( path, base, shards){
 	
-    var sum = 0,
-        i=0,
-        len = path.value.length, 
-        newPath = [], 
-        shards = shards || 1,
-        shard;
+    var  sum = 0
+        ,i=0
+        ,len = path.value.length 
+        ,newPath = []
+        ,shards = shards || 1
+        ,localShard
 
-    for(;i<len;i++){
+    for(;i<len;i++)
         sum += path.toString().charCodeAt(i);
-    }
 
-    shard = 1 + sum % shards;
+    localShard = 1 + sum % shards;
     
-    newPath.push(base.value.replace(/{#}/, shard ));
+    newPath.push( base.value.replace(/{#}/, localShard ) );
     newPath = newPath.join('/');
     
     return new(tree.Quoted)('"'+ newPath +'"',newPath);
